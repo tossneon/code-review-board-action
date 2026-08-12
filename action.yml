@@ -1,0 +1,61 @@
+name: 'Code Review Board'
+description: 'Three independent AI reviewers — Security Skeptic, Reliability Realist, Maintainability Pragmatist — critique your pull request separately, so you catch what one agreeable "looks good!" never would. No SaaS subscription, no code stored anywhere — bring your own Claude API key.'
+author: 'tossneon'
+branding:
+  icon: 'users'
+  color: 'purple'
+
+inputs:
+  anthropic-api-key:
+    description: 'Anthropic (Claude) API key. Required. Store it as a repo secret, never hardcode it.'
+    required: true
+  github-token:
+    description: 'Token used to post the review comment on the pull request.'
+    required: false
+    default: ${{ github.token }}
+  model:
+    description: 'Claude model id to use for the reviews.'
+    required: false
+    default: 'claude-sonnet-4-5-20250929'
+  reviewers:
+    description: 'Comma-separated subset of personas to run: security,reliability,maintainability'
+    required: false
+    default: 'security,reliability,maintainability'
+  max-diff-chars:
+    description: 'Truncate the PR diff to this many characters before sending it to the model (cost/context control).'
+    required: false
+    default: '60000'
+  license-key:
+    description: 'Optional Code Review Board Pro license key. Unlocks the 4th reviewer persona (Performance Pessimist) and a higher diff cap. Leave empty for the free 3-reviewer tier — everything else works the same either way.'
+    required: false
+    default: ''
+  pro-product-id:
+    description: 'Gumroad product_id to verify license-key against. Only needed if you set license-key.'
+    required: false
+    default: ''
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install action dependencies
+      shell: bash
+      working-directory: ${{ github.action_path }}
+      run: npm install --omit=dev --no-audit --no-fund
+
+    - name: Run Code Review Board
+      shell: bash
+      working-directory: ${{ github.action_path }}
+      run: node src/index.js
+      env:
+        ANTHROPIC_API_KEY: ${{ inputs.anthropic-api-key }}
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+        CRB_MODEL: ${{ inputs.model }}
+        CRB_REVIEWERS: ${{ inputs.reviewers }}
+        CRB_MAX_DIFF_CHARS: ${{ inputs.max-diff-chars }}
+        CRB_LICENSE_KEY: ${{ inputs.license-key }}
+        CRB_PRO_PRODUCT_ID: ${{ inputs.pro-product-id }}
