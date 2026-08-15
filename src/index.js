@@ -124,7 +124,7 @@ async function main() {
     return;
   }
 
-  let footer = '\n---\n_🔍 [Code Review Board](https://tossneon.gumroad.com/l/code-review-board) — three independent AI reviewers, no code stored, nothing sent anywhere except the Anthropic API key you provided.';
+  let footer = '\n---\n_🔍 [Code Review Board](https://nadacompany.gumroad.com/l/code-review-board) — three independent AI reviewers, no code stored, nothing sent anywhere except the Anthropic API key you provided.';
   if (truncated) footer += ' Diff was truncated for this review — see the PR for the full change.';
   if (skippedPro.length > 0) {
     footer += ` Skipped Pro-only reviewer(s) (${skippedPro.join(', ')}) — add \`license-key\`/\`pro-product-id\` to unlock.`;

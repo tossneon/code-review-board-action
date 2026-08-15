@@ -4,7 +4,7 @@
 
 Three independent AI reviewers — **Security Skeptic**, **Reliability Realist**, **Maintainability Pragmatist** — critique every pull request separately, without seeing each other's verdict first. No GitHub-connected SaaS subscription, no code stored anywhere. You bring your own Anthropic API key; the Action calls Claude directly and posts one combined review comment on the PR.
 
-This is the GitHub Action edition of [Code Review Board](https://tossneon.gumroad.com/l/code-review-board) (originally a Notion + prompt-pack product for pasting diffs into ChatGPT/Claude by hand) — same three personas, now wired into your PR pipeline automatically.
+This is the GitHub Action edition of [Code Review Board](https://nadacompany.gumroad.com/l/code-review-board) (originally a Notion + prompt-pack product for pasting diffs into ChatGPT/Claude by hand) — same three personas, now wired into your PR pipeline automatically.
 
 ## Why
 
