@@ -1,7 +1,6 @@
 'use strict';
 
 const core = require('@actions/core');
-const github = require('@actions/github');
 const Anthropic = require('@anthropic-ai/sdk');
 
 const { PERSONAS } = require('./personas');
@@ -60,6 +59,12 @@ function truncateDiff(diff, maxChars) {
 }
 
 async function main() {
+  // @actions/github@9.x는 ESM 전용 배포(package.json "type":"module")라 CJS require()로는
+  // 로드할 수 없다(require 시 ERR_PACKAGE_PATH_NOT_EXPORTED). 이 액션 자체는 CJS로 두고
+  // 이 부분만 동적 import로 불러온다 — 2026-08-17 e2e 검증에서 실제로 이 방식이 아니면
+  // 액션이 아예 시작조차 못 하는 것을 확인했다(기존 스모크 테스트는 @actions/github를
+  // 통째로 스텁으로 대체해서 이 문제를 가리고 있었다).
+  const github = await import('@actions/github');
   const anthropicApiKey = core.getInput('anthropic-api-key', { required: true }) || process.env.ANTHROPIC_API_KEY;
   const githubToken = process.env.GITHUB_TOKEN;
   const model = process.env.CRB_MODEL || 'claude-sonnet-4-5-20250929';
