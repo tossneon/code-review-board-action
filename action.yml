@@ -1,5 +1,5 @@
 name: 'Code Review Board'
-description: 'Three independent AI reviewers — Security Skeptic, Reliability Realist, Maintainability Pragmatist — critique your pull request separately, so you catch what one agreeable "looks good!" never would. No SaaS subscription, no code stored anywhere — bring your own Claude API key.'
+description: 'Three independent AI reviewers critique your PR separately — catch what one agreeable review misses. BYO API key.'
 author: 'tossneon'
 branding:
   icon: 'users'
