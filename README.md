@@ -29,7 +29,7 @@ jobs:
   review:
     runs-on: ubuntu-latest
     steps:
-      - uses: tossneon/code-review-board-action@v1
+      - uses: glowhalo/code-review-board-action@v1
         with:
           anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
 ```

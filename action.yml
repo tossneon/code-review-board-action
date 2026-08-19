@@ -1,6 +1,6 @@
 name: 'Code Review Board'
 description: 'Three independent AI reviewers critique your PR separately — catch what one agreeable review misses. BYO API key.'
-author: 'tossneon'
+author: 'GlowHalo'
 branding:
   icon: 'users'
   color: 'purple'
